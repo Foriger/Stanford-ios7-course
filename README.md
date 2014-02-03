@@ -1,7 +1,7 @@
-# Stanford iOS7 course
+# Stanford iOS7 course Homework 
 
-That are my solutions for Assigments of iOS course.
-I'am not a student, there so they may be not correct.
+Here are my solutions  for all given homeworks.
+I'am not Stanford  student so they may be not correct.
 Use it at own risk.
 
 **Done:** Assignment I, Assignment II
