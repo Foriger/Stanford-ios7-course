@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Foriger. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "GameCardBaseViewController.h"
 
-@interface GameCardViewController : UIViewController
+@interface GameCardViewController : GameCardBaseViewController
 
 @end

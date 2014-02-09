@@ -11,8 +11,6 @@
 @interface CardMatchingGame ()
 @property (nonatomic,readwrite) NSInteger score;
 @property (nonatomic,strong) NSMutableArray *cards;
-@property (nonatomic,strong) NSMutableArray *matchedCards;
-@property (nonatomic,readwrite) NSString *explanation;
 @end
 
 @implementation CardMatchingGame
@@ -66,42 +64,38 @@ static const int CONST_CHOOSE =1;
         }
         else{
             NSMutableArray *temp = [[NSMutableArray alloc] init];
-             for(Card *otherCard in self.cards){
+            for(Card *otherCard in self.cards){
                 if(otherCard.isChosen && !otherCard.isMatched){
                     [temp addObject:otherCard];
-                    
                     if([temp count]==self.mode-1){
                         int matchScore = [card match:temp];
                         if(matchScore){
-                            NSMutableString *cardsDesc = [[NSMutableString alloc] init];
                             self.score += matchScore * MATCH_BONUS;
                             for(Card *matchedCard in temp){
                                 matchedCard.matched = YES;
-                                [cardsDesc appendFormat:@"%@ ",[matchedCard description]];
                             }
                             card.matched = YES;
-                            [cardsDesc appendFormat:@"%@ ",[card description]];
-                            self.explanation = [NSString stringWithFormat:@"Cards (%@) for %d points! ",cardsDesc,self.score ];
+                            [temp addObject:card];
+                            self.matchedCards = temp;
                         }
                         else{
                             self.score -= MISMATCH_POINT;
-                            NSMutableString *cardsDesc = [[NSMutableString alloc] init];
                             for(Card *matchedCard in temp){
                                 matchedCard.chosen = NO;
-                                [cardsDesc appendFormat:@"%@ ",[matchedCard description]];
                             }
                             card.chosen = NO;
-                            [cardsDesc appendFormat:@"%@ ",[card description]];
-                             self.explanation = [NSString stringWithFormat:@"Cards (%@) for %d points! ",cardsDesc,self.score ];
+                            [temp addObject:card];
+                            self.matchedCards = temp;
                         }
+                        
                         break;
+                      
                     }
-                    
                 }
             }
             self.score -=CONST_CHOOSE;
             card.chosen = YES;
-
+            
         }
     }
 }

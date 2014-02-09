@@ -9,5 +9,13 @@
 #import "Card.h"
 
 @interface SetCard : Card
+@property (strong,nonatomic) NSString *shape;
+@property (strong,nonatomic) UIColor *foregroundColor;
+@property (strong,nonatomic) NSNumber *count;
+@property (strong,nonatomic) UIColor *strokeColor;
+
++(NSArray *) validShapes;
++(NSArray *) validColors;
++(NSArray *) validStrokeColors;
 
 @end

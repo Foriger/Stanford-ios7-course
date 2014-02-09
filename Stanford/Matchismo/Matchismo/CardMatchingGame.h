@@ -20,6 +20,7 @@
 
 @property (nonatomic,readonly) NSInteger score;
 @property (nonatomic) NSInteger mode;
-@property (nonatomic,readonly) NSString *explanation;
+
+@property (nonatomic,strong) NSMutableArray *matchedCards;
 
 @end
