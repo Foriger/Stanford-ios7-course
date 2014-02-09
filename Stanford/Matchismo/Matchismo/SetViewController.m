@@ -14,19 +14,12 @@
 #import "HistoryViewController.h"
 
 
-@interface SetViewController ()
-@property (strong,nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
-@property (strong,nonatomic) NSMutableArray *historyArray;
-@end
-
 @implementation SetViewController
 
 //Load Set cards into view
 -(void) viewDidLoad
 {
+    self.game.mode = 3;
     [self updateUI];
 }
 
@@ -36,24 +29,6 @@
 }
 
 
--(NSMutableArray *)historyArray{
-    if(!_historyArray){
-      _historyArray = [[NSMutableArray alloc] init];
-    }
-    return _historyArray;
-}
-
-
--(CardMatchingGame *)game
-{
-    if(!_game){
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[self cardDeck]];
-        _game.mode = 3;
-    }
-    return _game;
-}
-
 - (IBAction)newGame:(UIButton *)sender {
     self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                   usingDeck:[self cardDeck]];
@@ -62,14 +37,6 @@
     self.historyArray = nil;
     [self updateUI];
 }
-
-
-- (IBAction)touchCardButton:(UIButton *)sender {
-    int choosedButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:choosedButtonIndex];
-    [self updateUI];
-}
-
 
 -(void) updateUI
 {
@@ -98,15 +65,6 @@
         [attr appendAttributedString:str];
         self.explanationLabel.attributedText = attr;
         [self.historyArray addObject:attr];
-    }
-    
-    
-}
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"historySegue"]){
-        HistoryViewController *historyViewController = segue.destinationViewController;
-        historyViewController.historyArray = self.historyArray;
     }
 }
 

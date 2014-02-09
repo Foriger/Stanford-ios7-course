@@ -12,54 +12,16 @@
 #import "CardMatchingGame.h"
 #import "HistoryViewController.h"
 
-@interface GameCardViewController ()
-@property (strong,nonatomic) CardMatchingGame *game;
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UILabel *explanationLabel;
-@property (strong,nonatomic) NSMutableArray *historyArray;
-@end
-
 @implementation GameCardViewController
 
+-(void)viewDidLoad
+{
+    self.game.mode = 2;
+}
 
 -(Deck *) cardDeck
 {
     return [[PlayingCardDeck alloc] init];
-}
-
--(NSMutableArray *)historyArray{
-    if(!_historyArray){
-        _historyArray = [[NSMutableArray alloc] init];
-    }
-    return _historyArray;
-}
-
-
--(CardMatchingGame *)game
-{
-    if(!_game){
-        _game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[self cardDeck]];
-        _game.mode =2;
-    }
-    return _game;
-}
-- (IBAction)newGame:(UIButton *)sender {
-    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
-                                                  usingDeck:[self cardDeck]];
-    self.scoreLabel.text = @"Score:0";
-    self.game.mode = 2;
-    self.historyArray = nil;
-    [self updateUI];
-}
-
-
-- (IBAction)touchCardButton:(UIButton *)sender {
-    int choosedButtonIndex = [self.cardButtons indexOfObject:sender];
-    [self.game chooseCardAtIndex:choosedButtonIndex];
-    [self updateUI];
-    
 }
 
 -(void) updateUI
@@ -90,15 +52,14 @@
     }
     
 }
-
--(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-    if([segue.identifier isEqualToString:@"historySegue"]){
-        HistoryViewController *historyViewController = segue.destinationViewController;
-        historyViewController.historyArray = self.historyArray;
-    }
+- (IBAction)newGame:(UIButton *)sender {
+    self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
+                                                  usingDeck:[self cardDeck]];
+    self.scoreLabel.text = @"Score:0";
+    self.game.mode = 2;
+    self.historyArray = nil;
+    [self updateUI];
 }
-
-
 
 -(NSString *) titleForCard:(Card *)card
 {
