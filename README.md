@@ -4,6 +4,6 @@ Here are my solutions  for all given homeworks.
 I'am not Stanford  student so they may be not correct.
 Use it at own risk.
 
-**Done:** Assignment I, Assignment II
+**Done:** Assignment I, Assignment II, Assignment III 
 
-**In progress:** Assignment III 
+**TODO:** Fix logic for Set card. 
